@@ -1,8 +1,8 @@
 docs-how-to-contribute
 ======================
-COMING SOON
+_COMING SOON_
 
-This will be the home of doc on for contributors to the Rackspace API doc  published at docs.rackspace.com.
+This will be the home of doc for contributors to Rackspace API documentation published at docs.rackspace.com.
 
 Until we write that up nicely, here's the basic process:
 
