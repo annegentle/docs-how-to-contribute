@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book 
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    version="5.0-extension RaxBook-2.0"    
+    xml:id="how2-styleguide">
+  <!-- make url.base match published URL for this PDF -->
+  <?rax canonical.url.base="http://docs.rackspace.com/how2/rax-styleguide/content"?>
+  <title>Rackspace Technical Documentation Style Guide</title>
+  <titleabbrev>RAX Style</titleabbrev>
+  <info>
+    <copyright>
+      <year>2010-2014</year>
+      <holder>Rackspace US, Inc.</holder>
+    </copyright>
+    <releaseinfo>GUIDE v1.0</releaseinfo>
+    <productname>Rackspace Technical Documentation</productname><!--Note that the <productname> text matches the first few words of the title. The build system splits the title into productname + rest of title on the pdf cover.-->
+    <!--If you leave the <pubdate> element empty, the build system inserts today's date automatically. -->
+    <pubdate>2014-04-13</pubdate>
+    <abstract>
+      <para>This document is intended for Rackers and Rackspace customers who wish to contribute to Rackspace technical documentation. </para>
+    </abstract>
+    <revhistory>
+      <revision>
+        <date>2014-04-13</date>
+        <revdescription>
+          <itemizedlist>
+            <listitem>
+              <para>First draft of DocBook version, transferred from internal wiki.</para>
+            </listitem>
+          </itemizedlist>
+        </revdescription>
+      </revision>
+    </revhistory>
+    <legalnotice role="rs-api">
+      <annotation>
+        <remark>Copyright details are filled in by the build system.</remark>
+      </annotation>
+    </legalnotice>
+    <!-- metadata controls placement on docs.rackspace.com; make valid before publication 
+    <raxm:metadata
+        xmlns:raxm="http://docs.rackspace.com/api/metadata">
+      <raxm:displayname>Rackspace Style Guide</raxm:displayname>
+      <raxm:product version="v1.0">how2</raxm:product>
+      <raxm:priority>10</raxm:priority>
+    </raxm:metadata>
+    -->
+  </info>
+  <chapter xml:id="overview">
+    <title>see if it builds</title>
+    <para>now?</para>
+    <section xml:id="change_history">
+      <title>Document Change History</title>
+      <para>This version of the Style Guide replaces and
+        obsoletes all previous versions. The most recent changes
+        are described in the table below: </para>
+      <?rax revhistory?>
+    </section>
+  </chapter>
+<!--  explain details in /chapters/ and include them here -->
+    <xi:include href="./chapters/intro.xml"/>  
+</book>
