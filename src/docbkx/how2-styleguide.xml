@@ -63,7 +63,7 @@
     </section>
   </chapter>
 <!--  explain details in /chapters/ and include them here -->
-  <xi:include href="./chapters/intro.xml"/>  
+  <xi:include href="./chapters/style-intro.xml"/>  
   <xi:include href="./chapters/style-basic-writing.xml"/>
   <xi:include href="./chapters/style-a2z.xml"/>
   <xi:include href="./chapters/style-terminology.xml"/>
