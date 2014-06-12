@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- set up common entitites soon 
+<!DOCTYPE application [<!ENTITY % common SYSTEM "../../common/common.ent">
+%common;]>
+-->
+<chapter xmlns="http://docbook.org/ns/docbook"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:xi="http://www.w3.org/2001/XInclude"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xml:id="exchange_API_concepts">
+   <title>Introduction to Rackspace Technical Documentation
+      Style</title>
+   <para> This will become a guide to help writers create and maintain
+      a consistent set of documents. This is what will be here soon: </para>
+   <itemizedlist>
+      <listitem>
+         <para>
+            Writing style guide
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Basic writing guidelines A-Z
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            style reference
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Acronyms and other abbreviations
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Capitalization
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Cloud account information
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Contractions
+         </para>
+      </listitem>      
+      <listitem>
+         <para>
+            Copyrights
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Cross-references
+            and links
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Dates
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Email addresses
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            File types
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Glossaries
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            IP addresses
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Lists
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Names
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Notes and other notation types
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Numbers
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Product names
+            and version numbers
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Punctuation
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Tables
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Tasks and procedures
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Telephone numbers
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Text formatting
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Title and headings
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Trademarks
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            URLs and domain names
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Terminology
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Product terminology style sheets
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Voice
+         </para>
+      </listitem>
+      <listitem>
+         <para>
+            Screenshots
+         </para>
+      </listitem>
+   </itemizedlist> 
+</chapter>
