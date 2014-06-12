@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter 
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    version="5.0-extension RaxBook-2.0"    
+    xml:id="how2-style-conclusion">
+    <title>
+        Conclusion
+    </title>
+    <para>
+        This section of the writing style guide provides basic writing guidelines. 
+    </para>
+    <section xml:id="outtro">
+        <title>
+            Thanks for learning about style
+        </title>
+        <para>
+            later
+        </para>
+    </section>
+</chapter>
