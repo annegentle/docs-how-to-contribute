@@ -27,11 +27,11 @@ Clean up your Docbook
 
     Fixing RST tables manually is time-consuming. If your document contains nested RST markup inside of tables, the effort of manual clean-up increases significantly. It's better to remove all nested markup in Docbook, prior to script conversion.
 
-#. Remove markup in tables.
+#. Remove markup in tables wherever possible.
 
     Sphinx may not process markup correctly when broken across table rows.
 
-    When text with inline markup breaks across lines, Sphinx inserts a space between broken characters. 
+    When text with inline markup breaks across lines, Sphinx parses the markup erratically. For example, Sphinx inserts a space between characters broken across lines, and may publish inline markup without parsing it.
 
 Convert your docs
 ~~~~~~~~~~~~~~~~~
@@ -66,29 +66,14 @@ Clean up your reST
 Set up your authoring environment
 ---------------------------------
 
+Choose a code editor that supports RST markup. `Sublime Text`_ offers native RST support.
+
 Follow OpenStack conventions for `authoring in RST`_.
 
 (Note to self: make a wiki page that simplifies OpenStack conventions for RST.)
 
 .. _authoring in RST: https://wiki.openstack.org/wiki/Documentation/Markup_conventions
-
-Set up the sphinx environment
------------------------------
-
-Follow these steps: https://one.rackspace.com/display/devdoc/Sphinx+documentation+notes+for+multi-product+user+guides
-
-The first time you run this script, sphinx will ask for a lot of information.
-
-Rename your files
------------------
-
-Choose meaningful names for individual doc files. For example::
-
-    `GettingStartedGuide/api-reference`
-
-    is better than
-
-    `GettingStartedGuide/chapter-2`
+.. _Sublime Text: http://www.sublimetext.com/2
 
 Edit your index.rst file
 ------------------------
@@ -100,9 +85,9 @@ Edit your index.rst file
 .. note::
     The `index.rst` file serves as a table of contents and provides the structure for left-rail navigation on developer.rackspace.com.
 
-    You can use the `index-sample.rst` file in this document's folder as a template for your own documentation.
+    You can use the `index-sample.rst` file in this document's repo folder as a template.
 
-#. If your doc has multiple volumes for the same product, list them 
+#. If your doc has multiple volumes, list them 
     under second-level headings in the same `index.rst` file. For 
     example::
 
@@ -116,28 +101,41 @@ Edit your index.rst file
 
     DG/dg-overview
 
+Rename your files
+-----------------
+
+Choose meaningful names for individual doc files. For example::
+
+    `GettingStartedGuide/api-reference`
+
+    is better than
+
+    `GettingStartedGuide/chapter-2`
+
+Update `index.rst` to reflect your changes.
+
 Clean up tables
 ---------------
 
-Avoid markup in tables whenever possible. 
+Tables require significant manual cleanup post-conversion. 
 
-Tables require significant manual cleanup post-conversion.
+#. Remove markup in tables whenever possible. 
 
-    * Getting rid of the .. raw:: html blocks
-            Is there a way to fix this prior to conversion?
+#. Remove markup from text in bulleted or itemized lists. 
 
-Don't put marked up text in bulleted or itemized lists. (RST treats it as an unexpected termination of the list.)
+    RST treats markup as an unexpected termination of the list.
 
-Don't break cross references across lines.
-    Use a blanket "for more info, see" either above or below table.
+#. Remove cross references from tables.
 
-Rename files
-------------
+    If a cross reference is necessary, replace all cross references inside a table with a single cross reference after the table. 
 
-Create links and cross-references
+Repair links and cross-references
 ---------------------------------
 
-Remove the following unnecessary code blocks wherever you find them::
+Remove orphaned code
+--------------------
+
+#. Remove the following unnecessary code blocks wherever you find them::
 
     .. raw:: html
         <div
@@ -146,35 +144,44 @@ Remove the following unnecessary code blocks wherever you find them::
         d="http://docbook.org/ns/docbook"
         svg="http://www.w3.org/2000/svg">
 
-Remove `programlisting` and `screen` from all `.. code::` directives. If Sphinx offers `Pygment support`_ for a suitable replacement, enter it instead. For example::
+#. Remove `programlisting` and `screen` from all `.. code::` directives. 
 
-    Replace
+    If Sphinx offers `Pygment support`_ for a suitable replacement, enter it instead. For example::
 
-    .. code:: programlisting
+        Replace
 
-    with
+        .. code:: programlisting
 
-    .. code:: bash
+        with
+
+        .. code:: bash
 
 .. _Pygment support: http://sphinx-doc.org/markup/code.html
 
+Test your output
+----------------
 
-When running sphinx-quickstart, choose separate folders for build and source files. 
-    Sphinx handles nested subdirectories when building html, so make sure each source file has a unique name.
+#. Build HTML files from your RST source.
+
+`Follow these steps`_.
+
+Test your updates to RST files frequently with Sphinx's `make html` process.
+
+.. _Follow these steps: https://one.rackspace.com/display/devdoc/Sphinx+documentation+notes+for+multi-product+user+guides
+
+
+
+
+
 
 Things I did in this conversion, either seriously or to play around:
 
-Changed file names and titles:
-    Removed chapter numbering (from file names and file headings) to reflect that web delivery is non-hierarchical (every page is page one)
-        BUT: Still important to number files (01, 02, … <n>) to ensure that globbing in a torte directive orders files properly
+
     Removed numbering to highlight that content needs to be organized around user tasks (Difficult for conversion when original authoring wasn’t focused around user-centric tasks.)
 
 Important for future conversions:
     Remove duplicate content; write in one location and link
     Example: Cloud Feeds Concepts duplicates content
-
-What this doesn’t include:
-    Publishers guide (internal only)
 
 Difficulties I’m encountering:
 
@@ -184,17 +191,7 @@ RST conversion results have line breaks hard coded. Line wrapping is treated as 
 
 ————
 
-For internal links: titles are implicit anchors. If linking to a section heading with different text, ensure you enter section headings correctly.
 
-(example: 
-{
-This Title is a Link
-==============
-`This Title is a Link`_
-}
-
-Relative links: questions for Christie Q
-    What’s the required depth for relative link paths?
 
 FOCUS ON USER TASKS
     Do users need to “remember to replace”? Or do they need to “replace”?
@@ -203,7 +200,7 @@ FOCUS ON USER TASKS
 
 Eliminate hard-coded chapter, table, and example numbering. Instead, provide implicit links to section titles. If sequential numbering is required, use automatic section numbering. http://docutils.sourceforge.net/docs/ref/rst/directives.html#automatic-section-numbering
 
-Call out first use of an unfamiliar term.
+Call out first use of an unfamiliar term. (Use italics)
 
 Place links at end of section, organize by order of appearance.
 
@@ -227,24 +224,7 @@ Focus on creating a template; concentrate on creating something to take forward 
 
 Integrate hyperlinks into text rather than calling them out separately
 
-Constanze will convert Publisher’s Guide from db>RST, check into repo
-
-BRANCH REPO for more template-oriented experiment
-
-Include the API reference (at some point)
-
-Standardize heading level conventions?
-    Not strictly necessary but helpful
-
-    ===
-       —
-              ~~~
-
 Post-conversion cleanup
-
-Strip out conversion artifacts.
-Get rid of empty HTML tags, etc.
-If you have bullet points in tables, manually fix them
 
 Strip out chapter, example, and table numbering.
 
