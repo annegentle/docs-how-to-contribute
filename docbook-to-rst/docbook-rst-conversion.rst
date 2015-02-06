@@ -8,11 +8,11 @@ These instructions help you convert a Docbook publication into a reST document f
 
 Converting from Docbook to reST requires three steps:
 
-1. Clean up your Docbook
+1. Clean up your Docbook.
 
-2. Run the conversion script
+2. Convert your docs.
 
-3. Clean up your reST
+3. Clean up your reST.
 
 Clean up your Docbook
 ~~~~~~~~~~~~~~~~~~~~~
@@ -33,14 +33,32 @@ Clean up your Docbook
 
     When text with inline markup breaks across lines, Sphinx inserts a space between broken characters. 
 
+Convert your docs
+~~~~~~~~~~~~~~~~~
+
+Create a GitHub repository
+--------------------------
+
+Create a new repository for your conversion results.
+
 Run the conversion script
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
 1. Follow the instructions for `converting Docbook to RST`_.
 
 .. _converting Docbook to RST: https://one.rackspace.com/pages/viewpage.action?title=Notes+on+converting+DocBook+to+RST&spaceKey=~marg7175
 
-2. Run `sphinx-quickstart`.
+2. Run `sphinx-quickstart` in your doc repo.
+
+The script walks you through setup, prompting you to confirm default values or choose alternatives.
+
+3. Accept the Sphinx defaults.
+
+    For version number, enter the current product or document version followed by 'b'. For example::
+
+    1.01b1
+
+    `1.0` is the document version. 'b1' indicates that this is the first version of a document converted from an existing document. (If the document or product version remains unchanged, the next iteration's version number would be 1.0b2.)
 
 Clean up your reST
 ~~~~~~~~~~~~~~~~~~
@@ -54,11 +72,6 @@ Follow OpenStack conventions for `authoring in RST`_.
 
 .. _authoring in RST: https://wiki.openstack.org/wiki/Documentation/Markup_conventions
 
-Create a GitHub repository
---------------------------
-
-Create a new repository for your conversion results.
-
 Set up the sphinx environment
 -----------------------------
 
@@ -66,12 +79,42 @@ Follow these steps: https://one.rackspace.com/display/devdoc/Sphinx+documentatio
 
 The first time you run this script, sphinx will ask for a lot of information.
 
+Rename your files
+-----------------
 
+Choose meaningful names for individual doc files. For example::
 
-Create the index file
----------------------
+    `GettingStartedGuide/api-reference`
 
+    is better than
 
+    `GettingStartedGuide/chapter-2`
+
+Edit your index.rst file
+------------------------
+
+1. Open the `index.rst` file in the top level of your doc repo.
+
+2. Create the navigation structure for your document.
+
+.. note::
+    The `index.rst` file serves as a table of contents and provides the structure for left-rail navigation on developer.rackspace.com.
+
+    You can use the `index-sample.rst` file in this document's folder as a template for your own documentation.
+
+#. If your doc has multiple volumes for the same product, list them 
+    under second-level headings in the same `index.rst` file. For 
+    example::
+
+    Getting Started Guide
+    ~~~~~~~~~~~~~~~~~~~~~
+
+    GSG/gs-overview
+
+    Developer Guide
+    ~~~~~~~~~~~~~~~
+
+    DG/dg-overview
 
 Clean up tables
 ---------------
@@ -88,7 +131,13 @@ Don't put marked up text in bulleted or itemized lists. (RST treats it as an une
 Don't break cross references across lines.
     Use a blanket "for more info, see" either above or below table.
 
-Get rid of these wherever you find them::
+Rename files
+------------
+
+Create links and cross-references
+---------------------------------
+
+Remove the following unnecessary code blocks wherever you find them::
 
     .. raw:: html
         <div
@@ -97,24 +146,18 @@ Get rid of these wherever you find them::
         d="http://docbook.org/ns/docbook"
         svg="http://www.w3.org/2000/svg">
 
-Code blocks: remove `programlisting` from the code directive. For example::
+Remove `programlisting` and `screen` from all `.. code::` directives. If Sphinx offers `Pygment support`_ for a suitable replacement, enter it instead. For example::
 
-    Replace:
+    Replace
 
     .. code:: programlisting
 
-    with:
+    with
 
-    .. code::
- 
-Increment version number appropriately: need to establish best practices
+    .. code:: bash
 
-    When converting Cloud Feeds, I chose version 1.0b1 to indicate the first version of an alternate platform
+.. _Pygment support: http://sphinx-doc.org/markup/code.html
 
-    Choice given automatically with sphinx-quickstart, otherwise edit conf.py
-
-Manually populate index.rst initially, update with any changes
-    Globbing is technically possible, but unless you manually order pages in directory through file name conventions, topic structure in left nav will be arbitrary
 
 When running sphinx-quickstart, choose separate folders for build and source files. 
     Sphinx handles nested subdirectories when building html, so make sure each source file has a unique name.
