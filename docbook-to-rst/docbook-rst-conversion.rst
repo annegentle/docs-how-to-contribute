@@ -1,8 +1,8 @@
+.. _docbook2rst:
+
 ====================================================
 Converting an existing document from Docbook to reST
 ====================================================
-
-.. _docbook2rst:
 
 These instructions help you convert a Docbook publication into a reST document for web delivery.
 
@@ -25,13 +25,23 @@ Clean up your Docbook
 
     .. note:: 
 
-    Fixing RST tables manually is time-consuming. If your document contains nested RST markup inside of tables, the effort of manual clean-up increases significantly. It's better to remove all nested markup in Docbook, prior to script conversion.
+    If your document contains nested RST markup inside of tables, the effort of manual clean-up increases significantly. It's better to remove all nested markup in Docbook before running the conversion script.
 
 #. Remove markup in tables wherever possible.
 
-    Sphinx may not process markup correctly when broken across table rows.
+    Sphinx handles markup in tables erratically at best. Manually repairing tables in RST is laborious and time-consuming. 
 
-    When text with inline markup breaks across lines, Sphinx parses the markup erratically. For example, Sphinx inserts a space between characters broken across lines, and may publish inline markup without parsing it.
+    Some examples of how markup in tables breaks through conversion:
+
+        * Sphinx may not parse markup correctly when marked-up text breaks across table rows. 
+
+        * Sphinx inserts a space between characters broken across table rows.
+
+        * Sphinx may publish inline markup in tables without parsing it.
+
+        * Sphinx does not parse cross references that break across table rows.
+
+    Removing markup in tables prior to conversion reduces effort.
 
 Convert your docs
 ~~~~~~~~~~~~~~~~~
@@ -48,13 +58,15 @@ Run the conversion script
 
 .. _converting Docbook to RST: https://one.rackspace.com/pages/viewpage.action?title=Notes+on+converting+DocBook+to+RST&spaceKey=~marg7175
 
-2. Run `sphinx-quickstart` in your doc repo.
+2. Move the conversion results to your new repo.
 
-The script walks you through setup, prompting you to confirm default values or choose alternatives.
+3. In your doc repo, run ``sphinx-quickstart``.
 
-3. Accept the Sphinx defaults.
+    The quickstart script guides you through setup.
 
-    For version number, enter the current product or document version followed by 'b'. For example::
+4. Accept the Sphinx defaults.
+
+    For version number, enter the current product or document version followed by 'b1`. For example::
 
     1.01b1
 
@@ -66,14 +78,39 @@ Clean up your reST
 Set up your authoring environment
 ---------------------------------
 
-Choose a code editor that supports RST markup. `Sublime Text`_ offers native RST support.
+Choose a code editor that supports RST markup.
 
-Follow OpenStack conventions for `authoring in RST`_.
+..note:: `Sublime Text`_ offers native RST support.
+
+Follow OpenStack conventions for `authoring in RST`_. Specifically:
+
+    * Use consistent heading formats.::
+
+        =========
+        Heading 1
+        =========
+
+        Heading 2
+        ~~~~~~~~~
+
+        Heading 3
+        ---------
+
+    * Enable word wrapping at 70 columns.
+
+    * Use \`\` for inline code. For example::
+
+        This looks like ``inline code markup``.
 
 (Note to self: make a wiki page that simplifies OpenStack conventions for RST.)
 
 .. _authoring in RST: https://wiki.openstack.org/wiki/Documentation/Markup_conventions
 .. _Sublime Text: http://www.sublimetext.com/2
+
+Rename your files
+-----------------
+
+#. Choose meaningful names for individual doc files. For example, `api-reference` is better than `chapter2`.
 
 Edit your index.rst file
 ------------------------
@@ -82,7 +119,6 @@ Edit your index.rst file
 
 2. Create the navigation structure for your document.
 
-.. note::
     The `index.rst` file serves as a table of contents and provides the structure for left-rail navigation on developer.rackspace.com.
 
     You can use the `index-sample.rst` file in this document's repo folder as a template.
@@ -100,37 +136,6 @@ Edit your index.rst file
     ~~~~~~~~~~~~~~~
 
     DG/dg-overview
-
-Rename your files
------------------
-
-Choose meaningful names for individual doc files. For example::
-
-    `GettingStartedGuide/api-reference`
-
-    is better than
-
-    `GettingStartedGuide/chapter-2`
-
-Update `index.rst` to reflect your changes.
-
-Clean up tables
----------------
-
-Tables require significant manual cleanup post-conversion. 
-
-#. Remove markup in tables whenever possible. 
-
-#. Remove markup from text in bulleted or itemized lists. 
-
-    RST treats markup as an unexpected termination of the list.
-
-#. Remove cross references from tables.
-
-    If a cross reference is necessary, replace all cross references inside a table with a single cross reference after the table. 
-
-Repair links and cross-references
----------------------------------
 
 Remove orphaned code
 --------------------
@@ -158,128 +163,108 @@ Remove orphaned code
 
 .. _Pygment support: http://sphinx-doc.org/markup/code.html
 
+Clean up tables
+---------------
+
+Tables require significant manual cleanup post-conversion. 
+
+#. Remove markup in tables whenever possible. 
+
+#. Remove markup from text in bulleted or itemized lists. 
+
+    RST treats markup as an unexpected termination of the list.
+
+#. Remove cross references from tables.
+
+    If a cross reference is necessary, replace all cross references inside a table with a single cross reference after the table.
+
+Clean up line breaks
+--------------------
+
+#. Remove breaks between lines in the same paragraph.
+
+The conversion script inserts a break at the end of every line, which may cause markup to parse incorrectly.
+
+Repair links and cross-references
+---------------------------------
+
+#. Repair external links.
+
+    With hyperlinks, RST allows you to separate link text from the link anchor. This helps preserve readability and makes it easier to update link URLs.
+
+    When linking to an external URL, place link anchors at the bottom of the section. For example::
+
+        =========
+        Heading 1
+        =========
+
+        `foo`_.
+
+        <other text>
+
+        .. _foo: http://bar.com
+
+        Heading 2
+        ~~~~~~~~~
+
+#. Assign cross reference IDs.
+
+    Add cross reference IDs to each section heading in your book. Follow the format::
+
+        <standard_abbreviation-book_abbreviation-heading1-heading2-heading3>
+
+    For example, the abbreviation for the top-level heading in the overview for the Cloud Load Balancer Developer Guide would be::
+
+        clb-devguide-overview
+
+    * Follow the standard list of `unique Disqus identifiers`_ for product abbreviations.
+
+    * Place cross reference IDs before the ID's section heading, and include a blank line after each cross reference directive. For example::
+
+        .. _clb-devguide-overview:
+
+        =========
+        Heading 1
+        =========
+
+#. Create cross references with the ``:ref:`` directive::
+
+    This is a :ref:`cross reference <cross-reference-target>`.
+
+.. _unique Disqus identifiers: https://one.rackspace.com/pages/viewpage.action?title=Disqus+project+identifiers&spaceKey=devdoc
+
+Repair image links
+------------------
+
+#. Link images in RST with the ``image`` directive. For example::
+
+    .. image: /images/foo.png
+
+.. note::
+    Be sure to include the image's relative path.
+
+Remove table, example, and chapter numbering
+--------------------------------------------
+
+#. Remove chapter, table, and example numbers.
+
+#. Replace explicit links to tables and examples with cross references to the section containing the table or example.
+
+(Note to reviewers: Does it make sense to remove numbering in Docbook prior to conversion? Removing numbering in RST output is pretty painless, so it may make more sense to remove numbering post-conversion.)
+
 Test your output
 ----------------
 
-#. Build HTML files from your RST source.
+#. `Follow these steps`_ to build HTML files from your RST source.
 
-`Follow these steps`_.
-
-Test your updates to RST files frequently with Sphinx's `make html` process.
+Repeat the ``make`` process to test your updates.
 
 .. _Follow these steps: https://one.rackspace.com/display/devdoc/Sphinx+documentation+notes+for+multi-product+user+guides
 
+Commit your output
+------------------
 
+Add the ``_build`` directory to your GitHub repo.
 
-
-
-
-Things I did in this conversion, either seriously or to play around:
-
-
-    Removed numbering to highlight that content needs to be organized around user tasks (Difficult for conversion when original authoring wasn’t focused around user-centric tasks.)
-
-Important for future conversions:
-    Remove duplicate content; write in one location and link
-    Example: Cloud Feeds Concepts duplicates content
-
-Difficulties I’m encountering:
-
-DB2RST conversion does not handle docbook links between chapters well (e.g. sending requests to the API chapter)
-
-RST conversion results have line breaks hard coded. Line wrapping is treated as new line start.
-
-————
-
-
-
-FOCUS ON USER TASKS
-    Do users need to “remember to replace”? Or do they need to “replace”?
-    Do users need to “use cURL to authenticate”? Or do they need to “authenticate”? 
-    Structure language around the actual goal a user is trying to achieve.
-
-Eliminate hard-coded chapter, table, and example numbering. Instead, provide implicit links to section titles. If sequential numbering is required, use automatic section numbering. http://docutils.sourceforge.net/docs/ref/rst/directives.html#automatic-section-numbering
-
-Call out first use of an unfamiliar term. (Use italics)
-
-Place links at end of section, organize by order of appearance.
-
-——
-
-Script automation for line-wrapping handling? 
-
-Specifically call out URL formatting and conventions
-
-Rose working on core infrastructure docs in Read the Docs default template. Can we apply template to Cloud Feeds docs?
-    IAN SAYS: use Mailgun template rather than RtD template
-
-Cloud Feeds Dev Guide
-    API reference section: how to convert to RST ?
-        Greg Schreck
-    Get Cloud Feeds API reference to live on api.rackspace.com
-
-Talk to Renee and Rose about Repose and conditional text (internal v external)
-
-Focus on creating a template; concentrate on creating something to take forward for the benefit of others
-
-Integrate hyperlinks into text rather than calling them out separately
-
-Post-conversion cleanup
-
-Strip out chapter, example, and table numbering.
-
-Update links
-    Preserve readability by separating the link text and the target URL.
-        Put target URLs at the end of the section containing the link text.
-    Explicitly label section headings for use with the :ref: tag.
-        Do this even if your document is short and doesn’t reference external files. It will save work later if someone needs to reference your section or incorporate your material into a larger work.
-
-    For example::
-
-    # Explicitly labeling section 1 makes cross-referencing easier.
-    .. _section-1:
-
-    Section 1
-    =========
-
-    # The link text is separated from the target URL.
-    Here is some `link text`_.
-
-    Skip ahead to :ref:`section-2`.
-
-    <everything else in the section>
-
-    # The target URL is specified at the end of the section.
-    .. _link text: https://targeturl
-
-    # Explicit label for section 2
-    .. _section-2:
-
-    Section 2
-    =========
-
-    See :ref:`section-1`.
-
-No need to remove line breaks in normal text.
-
-Doc structuring: when natively authoring, structure individual files around larger groups of user tasks, not around feature sets or product names
-
-Preserve accuracy of information between branches (legacy and empathetic fork)
-
-Cross references: put first cross reference directive BELOW section heading, all others go ABOVE section heading
-
-Question for #general: It’d be good to have a non-generic 404 page.
-
-Make sure to put image path in .. image: tags, or just put image files at same hierarchy as referencing file (e.g., .. image: /images/foo.png)
-
-Use consistent conventions for heading levels::
-
-    =========
-    Heading 1
-    =========
-
-    Heading 2
-    ~~~~~~~~~
-
-    Heading 3
-    ---------
+.. note::
+    Commit changes regularly&mdash;at least once per day.
