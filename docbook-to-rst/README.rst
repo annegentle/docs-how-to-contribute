@@ -2,7 +2,7 @@
 How to convert a book from Docbook to RST
 =========================================
 
-This directory contains instructions on how to convert a doc repo from Docbook to RST.
+This directory contains instructions on how to convert a document from Docbook to RST.
 
 These notes should not be taken as authoritative or final until formally released, likely in late 1Q2015.
 
