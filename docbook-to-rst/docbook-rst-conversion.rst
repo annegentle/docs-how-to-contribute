@@ -17,6 +17,8 @@ Converting from Docbook to reST requires three steps:
 Clean up your Docbook
 ~~~~~~~~~~~~~~~~~~~~~
 
+#. To minimize broken links in the RST output, convert links into href:xlink with a pointer to the URL for the content on docs.rackspace.com.
+
 #. Remove cross-reference links inside of tables.
 
 #. Remove nested markup. 
