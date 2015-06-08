@@ -184,4 +184,5 @@ Issues
 Inline literals display incorrectly
 -----------------------------------
 
-Verify that double back quotes `` \`\` `` enclose the literal characters.
+Verify that double back quotes enclose the literal characters.
+
