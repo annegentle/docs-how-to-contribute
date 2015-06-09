@@ -88,28 +88,42 @@ Install the tools you need:
 
     Enter your password when prompted.
 
-#. Install Sphinx.
+#. You can either install Sphinx locally or within a virtual environment.
 
-    Run the following command as a superuser in your shell terminal:
+    To install locally to have Sphinx available all the time, run the
+    following command as a superuser in your shell terminal:
 
         ``pip install --upgrade sphinx``
+
+    Optionally, start a virtual environment and install dependencies there by
+    running the following commands in your shell terminal::
+
+        virtualenv docs
+        ./docs/bin/activate
+
+    You should have a (docs) indicator in front of your shell prompt.
+    Next, install Sphinx and any other pip dependencies you need::
+
+        pip install sphinx
+
+    To stop working within the virtualenv, run this command::
+
+        deactivate
 
 Create new Sphinx projects
 --------------------------
 
-Repeat these steps for each of your developer guides.
+If you need to create a fresh Sphinx project, you can follow these steps.
 
 #. Open your shell terminal.
 
-#. Navigate to the developer guide's RST source directory. For example: ``/cloud-files/dev-guide/``
+#. Navigate to the intended guide's RST source directory. For example: ``/cloud-files/dev-guide/``
 
-#. Temporarily rename your ``index.rst`` file.
+#. Create an ``index.rst`` file.
 
-    The Sphinx quickstart script will not overwrite an existing ``index.rst`` file. Renaming it temporarily allows ``sphinx-quickstart`` to complete:
-
-        ``mv index.rst index2.rst``
-
-    Be sure to restore your original ``index.rst`` file after the quickstart script completes.
+    Typically the index.rst file is the "home page" for a project and contains
+    a toctree directive. The Sphinx quickstart script will not overwrite an
+    existing ``index.rst`` file.
 
 #. Create a new Sphinx project.
 
@@ -133,12 +147,6 @@ Repeat these steps for each of your developer guides.
 
             For example, enter ``2.0`` as the project version and project release version for the Cloud Files API v2.0.
 
-#. Restore your original ``index.rst`` file.
-
-    Enter the following command:
-
-        ``mv index2.rst index.rst``
-
 Build HTML files from the RST source
 ------------------------------------
 
@@ -146,14 +154,26 @@ Repeat these steps for each of your developer guides.
 
 #. Open your shell terminal.
 
-#. Navigate to the developer guide's RST source directory. For example: ``/cloud-files/dev-guide/``
+#. From the root of your repo directory, navigate to the developer guide's RST
+   source directory, where the conf.py is stored::
 
-    Verify that your devguide's RST source directory contains the following files:
+   cd rst
+
+    Verify that your devguide's RST source directory contains the following
+    files:
 
         ```
         conf.py
         index.rst
+        Makefile
+        make.bat
         ```
+
+#. Ensure that your ``conf.py`` contains a pointer to the base ``index.rst``
+   file::
+
+   # The master toctree document.
+   master_doc = 'cloud-images/dev-guide/index'
 
 #. Build HTML files from your devguide's RST source with the following command:
 
@@ -161,7 +181,7 @@ Repeat these steps for each of your developer guides.
 
 #. Verify that the build script succeeded.
 
-    #. Navigate in your RST source folder to ``_build/html/``.
+    #. Navigate in your RST source folder to ``_build/html/<proj-name>/dev-guide``.
 
     #. Open ``index.html`` in your browser.
 
@@ -181,8 +201,26 @@ Prepare your devguides for publication
 Issues
 ~~~~~~
 
+You can find existing known output issues in the `nexus-control <https://github.com/rackerlabs/nexus-control/>`_ repo. The ``make html`` output
+can tell you what is wrong with your build, such as files not included in a
+toctree, or missing images, or incorrect markup.
+
+WARNING: document isn't included in any toctree
+-----------------------------------------------
+
+Some files, such as CONTRIBUTING.md, are meant to be read in the GitHub repo
+itself, not as part of the doc deliverable, so it's fine if that file is not
+included in a toctree. Other files you want to ensure are spelled correctly
+in the toctree directive, typically in the ``index.rst`` file.
+
+Extra asterisks are output
+--------------------------
+
+Ensure that the source RST doesn't have an extra asterisk or an asterisk in
+addition to another inline markup indicator such as `.
+
 Inline literals display incorrectly
 -----------------------------------
 
-Verify that double back quotes enclose the literal characters.
+Verify that double back quotes (``) enclose the literal characters.
 

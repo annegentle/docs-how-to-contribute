@@ -19,11 +19,11 @@ We are opening our source repos a few at a time. Retry https://github.com/racker
 If a document's source is not available in github.com/rackerlabs/ or you prefer not to use git, you can give us feedback and suggestions by other means:
 
 * PUBLIC FEEDBACK
-    * at docs.rackspace.com, open a document, scroll to the bottom of any page, and use Disqus to post a comment
-    * reply to "Talk about Doc" in the Rackspace community at https://community.rackspace.com/general/f/34/t/565
+    * At docs.rackspace.com, open a document, scroll to the bottom of any page, and use Disqus to post a comment
+    * Reply to "Talk about Doc" in the Rackspace community at https://community.rackspace.com/general/f/34/t/565
 
 * PRIVATE FEEDBACK
-    * send email to rose.coste@rackspace.com and she'll route it to the right Information Developer(s)
+    * Send email to rose.coste@rackspace.com and she'll route it to the right Information Developer(s)
 
 ----
 Thank you for helping us improve Rackspace API documentation.
